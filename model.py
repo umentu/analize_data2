@@ -36,7 +36,7 @@ class Model(object):
 if __name__ == '__main__':
 
     analize = Analize()
-    (x, y) = analize.get_data_from_csv(DIRNAME + "/number_data.txt")
+    (x, y) = analize.get_data_from_csv(DIRNAME + "/cpu.csv")
 
     model = Model()
     f = model.get_1d_approx_func(x, y)
