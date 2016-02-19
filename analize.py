@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 import scipy as sp
 
-DIRNAME = os.path.dirname(os.path.abspath(__file__))
+DIRNAME = os.path.dirname(os.path.abspath(__file__)) + "/data"
 
 
 class Analize(object):
@@ -25,7 +25,7 @@ class Analize(object):
 
     def get_data_from_csv(self, 
                           file_path,
-                          delimiter="\t"):
+                          delimiter=","):
         """
         CSVファイルからデータを抽出する。
         usage:
@@ -42,7 +42,7 @@ class Analize(object):
     def show_graph(self,
                    x,
                    y,
-                   f=None,
+                   funcs=[],
                    ):
         """
         data_source(delimiterで区切った2列のデータ)を
@@ -51,7 +51,21 @@ class Analize(object):
         usage: 
             x: fと比較するデータの1カラム目
             y: fと比較するデータの2カラム目
-            f: 描画する関数
+            funcs: 描画する関数と関数の情報をdictのタプルで指定する
+                example:
+                    funcs = (
+                        {
+                            'func': f,
+                            'color': "r",
+                            'legend': "f: {0} d".format(1)
+                        },
+                        {
+                            'func': g,
+                            'color': "g",
+                            'legend': "g: {0} d".format(2)
+                        },
+                    )
+
         """
         plt.scatter(x, y)
 
@@ -60,10 +74,20 @@ class Analize(object):
 
         plt.autoscale(tight=True)
 
-        if f is not None:
+        if funcs is not None:
 
-            fx = sp.linspace(0, x[-1], 1000)
-            plt.plot(fx, f(fx), "r", linewidth=6)
+            legends = []
+
+            for func in funcs:
+                f = func['func']
+                c = func['color']
+                l = func['legend']
+
+                fx = sp.linspace(0, x[-1], 1000)
+                plt.plot(fx, f(fx), c, linewidth=6)
+                legends.append(l)
+
+            plt.legend([leg for leg in legends], loc="upper left")
 
         plt.show()
 
@@ -71,5 +95,5 @@ class Analize(object):
 if __name__ == '__main__':
 
     analize = Analize()
-    (x, y) = analize.get_data_from_csv(DIRNAME + "/cpu.csv")
+    (x, y) = analize.get_data_from_csv(DIRNAME + "/web_traffic.tsv", delimiter="\t")
     analize.show_graph(x, y)
