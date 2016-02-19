@@ -35,18 +35,17 @@ class Model(object):
 
 if __name__ == '__main__':
 
-"""
-color memo:
-b: blue
-g: green
-r: red
-c: cyan
-m: magenta
-y: yellow
-k: black
-w: white
-"""
-
+    """
+    color memo:
+    b: blue
+    g: green
+    r: red
+    c: cyan
+    m: magenta
+    y: yellow
+    k: black
+    w: white
+    """
 
     analize = Analize()
     (x, y) = analize.get_data_from_csv(DIRNAME + "/web_traffic.tsv", delimiter="\t")
