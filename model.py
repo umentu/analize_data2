@@ -53,7 +53,7 @@ if __name__ == '__main__':
     model = Model()
     f = model.get_approx_func(x, y, dim=1)
     g = model.get_approx_func(x, y, dim=2)
-    g = model.get_approx_func(x, y, dim=10)
+    h = model.get_approx_func(x, y, dim=10)
 
     funcs = [
         {'func': f, 'color': "r", 'legend': "f dim: 1"},
